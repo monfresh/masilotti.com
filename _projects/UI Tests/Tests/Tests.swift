@@ -3,13 +3,13 @@ import XCTest
 
 class Tests: XCTestCase {
     func testTappingAButton() throws {
-        let controller = loadInitialViewController() as! HomeViewController
+        let controller = loadHomeViewController()
         controller.toggleTextButton.tap()
         XCTAssertFalse(controller.textLabel.isHidden)
     }
 
     func testPushingAViewController() throws {
-        let controller = loadInitialViewController() as! HomeViewController
+        let controller = loadHomeViewController()
 
         controller.pushDetailButton.tap()
 
@@ -19,8 +19,7 @@ class Tests: XCTestCase {
 
     func testPresentingAModalViewController() throws {
         let window = UIWindow()
-        let controller = loadInitialViewController(in: window)
-            as! HomeViewController
+        let controller = loadHomeViewController(in: window)
 
         controller.presentModalButton.tap()
 
@@ -30,19 +29,18 @@ class Tests: XCTestCase {
 }
 
 extension XCTestCase {
-    func loadInitialViewController(in window: UIWindow? = nil) -> UIViewController? {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let navigationController = storyboard
-            .instantiateInitialViewController() as? UINavigationController
-        let topViewController = navigationController?.topViewController
+    func loadHomeViewController(in window: UIWindow? = nil) -> HomeViewController {
+        let homeViewController = HomeViewController()
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [homeViewController]
 
         if let window = window {
             window.rootViewController = navigationController
             window.makeKeyAndVisible()
         }
 
-        topViewController?.loadViewIfNeeded()
-        return topViewController
+        homeViewController.loadViewIfNeeded()
+        return homeViewController
     }
 }
 

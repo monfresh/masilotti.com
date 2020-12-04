@@ -1,7 +1,8 @@
 import UIKit
 
 class ModalViewController: UIViewController {
-    @IBAction private func dismiss() {
-        dismiss(animated: true)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
     }
 }
